@@ -15,20 +15,18 @@ export default function ContactForm() {
   const handleSubmit = e => {
     e.preventDefault();
 
-    contacts.some(contact => contact.name === name)
-      ? alert(`${name} is already in contacts`)
-      : dispatch(
-          addContacts({
-            id: nanoid(),
-            name: name,
-            number: number,
-          })
-        );
+    contacts.some(contact => contact.name === name) ? alert(`${name} is already in contacts`) : dispatch(
+        addContacts({
+          id: nanoid(),
+          name: name,
+          number: number,
+        })
+      
+      );
+    formReset();
 
-    setName('');
-    setNumber('');
-  };
-
+    
+  }
   const handleChange = evt => {
     const { name, value } = evt.target;
     switch (name) {
@@ -44,6 +42,11 @@ export default function ContactForm() {
         break;
     }
   };
+
+  const formReset = () => {
+      setName('');
+      setNumber('');
+    };
     
     return (
         <form onSubmit={handleSubmit} className={styles.form}>

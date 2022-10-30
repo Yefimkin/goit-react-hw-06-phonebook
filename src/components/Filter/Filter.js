@@ -1,11 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { setFilter } from 'redux/contacts/slice';
-import { getFilter } from 'redux/contacts/selectors';
 import styles from './Filter.module.css';
+import { useDispatch } from 'react-redux';
+import { filterContacts } from 'redux/Contacts';
 
-export default function Filter() {
+const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
 
   return (
     <>
@@ -13,12 +11,12 @@ export default function Filter() {
       <input
         type="text"
         name="filter"
-        value={filter}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Please enter name to find contact"
-        onChange={evt => dispatch(setFilter(evt.target.value))}
+        onChange={e => dispatch(filterContacts(e.target.value.toLowerCase()))}
         className={styles.input}
       />
     </>
   );
 };
+export default Filter;
