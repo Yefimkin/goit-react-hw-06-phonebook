@@ -1,16 +1,13 @@
+import React from "react";
 import PropTypes from 'prop-types';
 import styles from './Container.module.css'
 
-const Container = ({ title, children }) => (
-  <section>
-    <h2>{title}</h2>
-    {children}
-  </section>
+const Container = ({ children }) => (
+  <div className={styles.container}>{children}</div>
 );
 
-Container.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.array.isRequired,
-};
-
 export default Container;
+
+Container.propTypes = {
+  children: PropTypes.node,
+};
