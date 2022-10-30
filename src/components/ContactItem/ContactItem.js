@@ -1,54 +1,31 @@
-import { useDispatch } from 'react-redux';
-import { removeContacts } from 'redux/contacts/slice';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'redux/Contacts';
 import styles from './ContactItem.module.css'
 
-export default function ContactItem({ id, name, number }) {
+const Contacts = () => {
+  const contacts = useSelector(state => state.phoneBook.items);
+  const filter = useSelector(state => state.phoneBook.filter);
   const dispatch = useDispatch();
 
   return (
-    <>
-      <span>
-        {name}: {number}
-      </span>
-      <button
-        className={styles.button}
-        type="submit"
-        name={name}
-        onClick={() => dispatch(removeContacts(id))}
-      >
-        Delete
-      </button>
-    </>
+    <ul>
+      {contacts
+        .filter(el => el.name.toLowerCase().includes(filter))
+        .map(({ id, number, name }) => (
+          <li key={id}>
+            {name}: {number}
+            <button
+              
+              type="button"
+              onClick={() => dispatch(deleteContact({ id }))}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+    </ul>
   );
-}
-
-ContactItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
 };
 
-// const ContactItem = ({ id, name, number, onDelete }) => (
-//     <li key={id} className={styles.contact}>
-//         <p className={styles.contactText}>{name}</p>
-//         <p className={styles.contactText}>{number}</p>
-//         <button
-//             type="button"
-//             id={id}
-//             onClick={() => onDelete(id)}
-//             className={styles.button}
-//         >
-//         Delete
-//         </button>
-//     </li>
-// );
+export default Contacts;
 
-// ContactItem.propTypes = {
-//     id: PropTypes.string.isRequired,
-//     name: PropTypes.string.isRequired,
-//     number: PropTypes.string.isRequired,
-//     onDelete: PropTypes.func.isRequired,
-// };
-
-// export default ContactItem;

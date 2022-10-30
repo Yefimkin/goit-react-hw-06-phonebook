@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
 
-const phoneBook = createSlice({
+const contacts = createSlice({
   name: 'phoneBook',
   initialState: {
     items: [],
@@ -33,14 +33,14 @@ const phoneBook = createSlice({
   },
 });
 
-const phonebookPersistConfig = {
+const contactsPersistConfig = {
   key: 'phonebook',
   storage,
   blacklist: ['filter'],
 };
 
-export const { addContact, deleteContact, filterContacts } = phoneBook.actions;
+export const { addContact, deleteContact, filterContacts } = contacts.actions;
 export const persistedReducer = persistReducer(
-  phonebookPersistConfig,
-  phoneBook.reducer
+  contactsPersistConfig,
+  contacts.reducer
 );

@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
 import styles from './Container.module.css'
 
-const Container = ({ children }) => {
-  // eslint-disable-next-line react/react-in-jsx-scope
-  return <div className={styles.container}>{children}</div>;
-};
+const Container = ({ title, children }) => (
+  <section>
+    <h2>{title}</h2>
+    {children}
+  </section>
+);
 
 Container.propTypes = {
-  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
 };
 
 export default Container;

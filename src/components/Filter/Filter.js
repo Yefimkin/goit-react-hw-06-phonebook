@@ -6,17 +6,16 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   return (
-    <>
-      <p>Find contacts by name</p>
+    <label>
+      Find contacts by name
       <input
+        // className={styles.input}
         type="text"
         name="filter"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Please enter name to find contact"
         onChange={e => dispatch(filterContacts(e.target.value.toLowerCase()))}
-        className={styles.input}
       />
-    </>
+    </label>
   );
 };
+
 export default Filter;
