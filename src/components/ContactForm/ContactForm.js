@@ -35,13 +35,13 @@ function ContactForm() {
       return alert(`${name} ${number} is already in Phonebook`);
     }
     dispatch(addContact({ name, number }));
+    setName('');
+    setNumber('');
   }
 
   const onFormSubmit = e => {
     e.preventDefault();
     addContacts(name, number);
-    setName('');
-    setNumber('');
   };
 
   return (
