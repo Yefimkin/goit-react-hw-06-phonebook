@@ -1,4 +1,5 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
 
 const initialState = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -6,22 +7,19 @@ const initialState = [
   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
+
+export const getContacts = state => state.contacts;
+
 export const ContactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    addContact(state, { payload: { name, number } }) {
-      state.every(item => item.name.toLowerCase() !== name.toLowerCase())
-        ? state.push({
-            name: name,
-            number: number,
-            id: nanoid(),
-          })
-        : alert(`${name} is already in contacts`);
+    addContact(state, action) {
+      return state.unshift({ id: nanoid(), ...action.payload });
     },
 
-    deleteContact(state, { payload: id }) {
-      return state.filter(item => item.id !== id);
+    deleteContact(state, action) {
+      return state.filter(item => item.id !== action.payload);
     },
   },
 });

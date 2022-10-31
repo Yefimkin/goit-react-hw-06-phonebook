@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/ContactsSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact, getContacts } from '../../redux/ContactsSlice';
 import Button from '../Button/Button';
 import s from './ContactForm.module.css';
 
 function ContactForm() {
-  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -23,9 +22,24 @@ function ContactForm() {
     }
   };
 
+
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+
+  const contactIsExist = (name, number) => {
+    return contacts.find((item) => item.name.toLocaleLowerCase() === name.toLocaleLowerCase() || item.number === number);
+  }
+
+  const addContacts = (name, number) => {
+    if (contactIsExist(name, number)) {
+      return alert(`${name} ${number} is already in Phonebook`);
+    }
+    dispatch(addContact({ name, number }));
+  }
+
   const onFormSubmit = e => {
     e.preventDefault();
-    dispatch(addContact({ name, number }));
+    addContacts(name, number);
     setName('');
     setNumber('');
   };
