@@ -18,7 +18,8 @@ function ContactForm() {
         setNumber(value);
         break;
       default:
-        return;
+        setName('')
+        setNumber('')
     }
   };
 
