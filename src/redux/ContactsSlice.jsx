@@ -11,18 +11,12 @@ export const ContactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    addContact(state, { payload: { name, number } }) {
-      state.every(item => item.name.toLowerCase() !== name.toLowerCase())
-        ? state.push({
-            name: name,
-            number: number,
-            id: nanoid(),
-          })
-        : alert(`${name} is already in contacts`);
+    addContact(state, action) {
+      state.unshift({ id: nanoid(), ...action.payload });
     },
 
-    deleteContact(state, { payload: id }) {
-      return state.filter(item => item.id !== id);
+    deleteContact(state, action) {
+      state.filter(item => item.id !== action.payload);
     },
   },
 });
